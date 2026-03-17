@@ -3,89 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raya Marketplace | AzlanMymo</title>
+    <title>Raya Marketplace | AzlanMymo Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .product-card { background: white; border-radius: 20px; overflow: hidden; transition: 0.3s; }
-        .product-card:active { transform: scale(0.95); }
-        .cart-badge { position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
+        body { font-family: sans-serif; }
+        .product-card { background: white; border-radius: 24px; overflow: hidden; transition: 0.3s ease; border: 1px solid #f1f5f9; }
+        .product-card:hover { transform: translateY(-5px); border-color: #10b981; }
+        .cart-badge { position: absolute; top: -8px; right: -8px; background: #ef4444; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; border: 2px solid white; }
+        .sticky-nav { background: rgba(6, 78, 59, 0.95); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen pb-24">
+<body class="bg-slate-50 min-h-screen pb-32">
 
-    <nav class="bg-emerald-800 text-white p-4 sticky top-0 z-50 flex justify-between items-center shadow-lg">
-        <a href="index.html"><i class="fas fa-arrow-left"></i></a>
-        <h1 class="font-bold tracking-widest text-sm uppercase">Katalog Kuih Raya 2026</h1>
-        <div class="relative">
-            <i class="fas fa-shopping-basket text-xl"></i>
+    <nav class="sticky-nav text-white p-5 sticky top-0 z-50 flex justify-between items-center shadow-xl rounded-b-3xl">
+        <a href="index.html" class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+            <i class="fas fa-chevron-left text-yellow-400"></i>
+        </a>
+        <div class="text-center">
+            <h1 class="font-bold tracking-widest text-xs uppercase">Marketplace</h1>
+            <p class="text-[9px] opacity-60">AZLANMYMO LAB EDITION</p>
+        </div>
+        <div class="relative w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+            <i class="fas fa-shopping-basket text-yellow-400"></i>
             <span id="cartCount" class="cart-badge">0</span>
         </div>
     </nav>
 
-    <div class="bg-yellow-400 p-6 text-emerald-900 text-center">
-        <p class="text-[10px] font-bold uppercase tracking-widest">Promosi Ramadhan</p>
-        <h2 class="text-xl font-extrabold uppercase italic">Diskaun 10% Kombo Raya!</h2>
+    <div class="m-4 p-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-[2rem] text-emerald-900 shadow-lg relative overflow-hidden">
+        <div class="relative z-10">
+            <p class="text-[10px] font-bold uppercase tracking-widest opacity-80">Promosi Ramadhan</p>
+            <h2 class="text-2xl font-black uppercase italic leading-tight">Diskaun 10%<br>Kombo Raya!</h2>
+        </div>
+        <i class="fas fa-cookie-bite absolute -right-4 -bottom-4 text-7xl opacity-20 rotate-12"></i>
     </div>
 
     <main class="p-4 grid grid-cols-2 gap-4">
         
-        <div class="product-card shadow-sm border border-gray-200">
-            <div class="h-32 bg-emerald-100 flex items-center justify-center">
-                <i class="fas fa-cookie text-emerald-800 text-4xl"></i>
+        <div class="product-card shadow-sm">
+            <div class="h-36 bg-emerald-50 flex flex-col items-center justify-center relative">
+                <i class="fas fa-cookie text-emerald-800 text-5xl"></i>
+                <span class="absolute top-2 right-2 bg-emerald-800 text-white text-[8px] px-2 py-1 rounded-full font-bold">BEST SELLER</span>
             </div>
-            <div class="p-3">
-                <h3 class="font-bold text-sm">Tart Nanas Premium</h3>
-                <p class="text-xs text-emerald-700 font-bold">RM 35.00</p>
-                <button onclick="addToCart('Tart Nanas', 35)" class="mt-3 w-full bg-emerald-800 text-white py-2 rounded-lg text-[10px] font-bold uppercase">Tambah</button>
+            <div class="p-4">
+                <h3 class="font-bold text-sm text-slate-800">Tart Nanas Premium</h3>
+                <p class="text-xs text-emerald-600 font-extrabold mt-1">RM 35.00</p>
+                <button onclick="addToCart('Tart Nanas Premium', 35)" class="mt-4 w-full bg-emerald-900 text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-wider active:scale-95 transition shadow-md">
+                    + Tambah
+                </button>
             </div>
         </div>
 
-        <div class="product-card shadow-sm border border-gray-200">
-            <div class="h-32 bg-emerald-100 flex items-center justify-center">
-                <i class="fas fa-stroopwafel text-emerald-800 text-4xl"></i>
+        <div class="product-card shadow-sm">
+            <div class="h-36 bg-blue-50 flex items-center justify-center">
+                <i class="fas fa-stroopwafel text-blue-800 text-5xl"></i>
             </div>
-            <div class="p-3">
-                <h3 class="font-bold text-sm">Almond London</h3>
-                <p class="text-xs text-emerald-700 font-bold">RM 38.00</p>
-                <button onclick="addToCart('Almond London', 38)" class="mt-3 w-full bg-emerald-800 text-white py-2 rounded-lg text-[10px] font-bold uppercase">Tambah</button>
+            <div class="p-4">
+                <h3 class="font-bold text-sm text-slate-800">Almond London</h3>
+                <p class="text-xs text-emerald-600 font-extrabold mt-1">RM 38.00</p>
+                <button onclick="addToCart('Almond London', 38)" class="mt-4 w-full bg-emerald-900 text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-wider active:scale-95 transition shadow-md">
+                    + Tambah
+                </button>
+            </div>
+        </div>
+
+        <div class="product-card shadow-sm">
+            <div class="h-36 bg-orange-50 flex items-center justify-center">
+                <i class="fas fa-dot-circle text-orange-800 text-5xl"></i>
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-sm text-slate-800">Biskut Makmur</h3>
+                <p class="text-xs text-emerald-600 font-extrabold mt-1">RM 30.00</p>
+                <button onclick="addToCart('Biskut Makmur', 30)" class="mt-4 w-full bg-emerald-900 text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-wider active:scale-95 transition shadow-md">
+                    + Tambah
+                </button>
+            </div>
+        </div>
+
+        <div class="product-card shadow-sm">
+            <div class="h-36 bg-purple-50 flex items-center justify-center">
+                <i class="fas fa-cloud text-purple-800 text-5xl"></i>
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-sm text-slate-800">Meringue Kisses</h3>
+                <p class="text-xs text-emerald-600 font-extrabold mt-1">RM 25.00</p>
+                <button onclick="addToCart('Meringue Kisses', 25)" class="mt-4 w-full bg-emerald-900 text-white py-3 rounded-xl text-[10px] font-bold uppercase tracking-wider active:scale-95 transition shadow-md">
+                    + Tambah
+                </button>
             </div>
         </div>
 
     </main>
 
-    <div class="fixed bottom-6 left-0 right-0 px-6">
-        <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-2xl shadow-2xl flex items-center justify-center gap-3 transition active:bg-green-700">
-            <i class="fab fa-whatsapp text-2xl"></i>
-            <span>PESAN SEKARANG VIA WHATSAPP</span>
+    <div class="fixed bottom-8 left-0 right-0 px-6 z-50">
+        <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-5 rounded-[2rem] shadow-[0_20px_50px_rgba(22,163,74,0.4)] flex items-center justify-center gap-4 transition active:scale-95 hover:bg-green-700 border-t-4 border-white/20">
+            <div class="bg-white/20 p-2 rounded-full">
+                <i class="fab fa-whatsapp text-2xl"></i>
+            </div>
+            <div class="text-left">
+                <p class="text-[10px] opacity-80 leading-none">Checkout Melalui</p>
+                <p class="text-sm tracking-tight">WHATSAPP SEKARANG</p>
+            </div>
         </button>
     </div>
 
     <script>
         let cart = [];
-        let total = 0;
 
         function addToCart(name, price) {
             cart.push({name, price});
-            total += price;
+            updateCartUI();
+            
+            // Haptic feedback (simulasi)
+            if (window.navigator.vibrate) window.navigator.vibrate(50);
+        }
+
+        function updateCartUI() {
             document.getElementById('cartCount').innerText = cart.length;
-            alert(name + " ditambah ke bakul!");
         }
 
         function checkoutWhatsApp() {
             if (cart.length === 0) {
-                alert("Bakul anda kosong!");
+                alert("Alamak! Bakul anda kosong. Sila pilih kuih dahulu.");
                 return;
             }
 
-            let phone = "60123456789"; // Ganti dengan nombor peniaga
-            let message = "Salam AzlanMymo, saya ingin tempah kuih raya:%0A%0A";
+            let phone = "60123456789"; // GANTI DENGAN NOMBOR AZLAN
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
             
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} (RM${item.price})%0A`;
-            });
+            let message = "*TEMPAHAN KUIH RAYA 2026*%0A";
+            message += "----------------------------%0A";
+            
+            // Mengira kuantiti item yang sama
+            let counts = {};
+            cart.forEach(x => { counts[x.name] = (counts[x.name] || 0) + 1; });
+            
+            for (const [name, qty] of Object.entries(counts)) {
+                message += `✅ ${name} (x${qty})%0A`;
+            }
 
-            message += `%0ATotal: RM${total}%0AMohon info cara bayaran. Terima kasih!`;
+            message += "----------------------------%0A";
+            message += `*JUMLAH BESAR: RM ${total.toFixed(2)}*%0A%0A`;
+            message += "Mohon info ketersediaan stok & cara bayaran. Terima kasih AzlanMymo!";
             
             window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
         }
