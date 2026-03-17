@@ -3,126 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kad Raya Interaktif | AzlanMymo Lab</title>
+    <title>Premium Greeting Card | AzlanMymo Lab</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { background: #022c22; overflow-x: hidden; font-family: 'Poppins', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;700&display=swap');
         
-        /* Kontena Sampul */
-        .envelope-wrapper { height: 380px; margin-top: 50px; display: flex; justify-content: center; position: relative; }
+        body { background: #022c22; font-family: 'Poppins', sans-serif; transition: 0.5s; }
         
-        .envelope {
-            position: relative; width: 300px; height: 200px;
-            background: #065f46; border-radius: 0 0 15px 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
+        /* Tema Ilustrasi */
+        .theme-anime { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1578632292335-df3abbb0d586?q=80&w=500') center/cover; color: #fff; border: 4px solid #f472b6; }
+        .theme-tradisional { background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://www.toptal.com/designers/subtlepatterns/uploads/batik-dots.png'); color: #064e3b; border: 6px double #b45309; font-family: 'serif'; }
+        .theme-modern { background: #0f172a; color: #38bdf8; border: 2px solid #38bdf8; box-shadow: 0 0 15px #38bdf8; }
+        .theme-cartoon { background: #fef08a; color: #92400e; border: 4px dashed #f59e0b; border-radius: 40px !important; }
 
-        /* Penutup Sampul (Flap) */
-        .flap {
-            position: absolute; top: 0; width: 0; height: 0;
-            border-left: 150px solid transparent; border-right: 150px solid transparent;
-            border-top: 110px solid #047857; transform-origin: top;
-            transition: transform 0.6s ease; z-index: 3;
-        }
-
-        /* Kertas Kad */
-        .letter {
-            position: absolute; bottom: 10px; left: 10px;
-            width: 280px; height: 180px; background: white;
-            transition: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 2; padding: 25px; color: #064e3b;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Animasi Buka */
+        /* Animasi Sampul */
+        .envelope-wrapper { height: 420px; perspective: 1000px; display: flex; justify-content: center; align-items: flex-end; }
+        .envelope { position: relative; width: 320px; height: 220px; background: #065f46; border-radius: 0 0 15px 15px; cursor: pointer; transform-style: preserve-3d; transition: 0.5s; }
+        .flap { position: absolute; top: 0; width: 0; height: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 120px solid #047857; transform-origin: top; transition: 0.6s; z-index: 3; }
         .envelope.open .flap { transform: rotateX(180deg); z-index: 1; }
-        .envelope.open .letter { transform: translateY(-160px); height: 220px; z-index: 4; }
+        
+        /* Kertas Kad */
+        .letter { position: absolute; bottom: 10px; left: 10px; width: 300px; height: 200px; transition: 0.8s; z-index: 2; padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        .envelope.open .letter { transform: translateY(-180px); height: 280px; z-index: 4; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-        /* Template Styles */
-        .theme-classic { background: #fff; color: #064e3b; border: 4px double #d4af37; }
-        .theme-modern { background: #1e293b; color: #f1f5f9; border: 2px solid #38bdf8; }
-        .theme-floral { background: #fdf2f8; color: #be185d; border: 4px solid #f9a8d4; border-style: dotted; }
-
-        .template-btn { transition: 0.3s; border: 2px solid transparent; }
-        .template-btn.active { border-color: #fbbf24; transform: scale(1.1); }
+        .hidden-input { display: none; }
+        .custom-btn { @apply bg-white/10 hover:bg-white/20 px-3 py-2 rounded-lg text-[10px] font-bold transition-all border border-white/10; }
     </style>
 </head>
-<body class="min-h-screen p-6 text-white">
+<body class="min-h-screen p-4 pb-20">
 
-    <header class="flex justify-between items-center mb-6">
-        <a href="index.html" class="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full text-yellow-400">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <h1 class="text-xs font-bold uppercase tracking-widest">Digital Greeting Card</h1>
-        <div class="w-10"></div>
-    </header>
+    <aside class="max-w-md mx-auto mb-8 space-y-4 bg-black/30 p-4 rounded-3xl backdrop-blur-md border border-white/5">
+        <h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-yellow-400 text-center">Customizer Pro</h2>
+        
+        <div class="grid grid-cols-4 gap-2">
+            <button onclick="setTheme('anime')" class="text-[9px] font-bold bg-pink-500 p-2 rounded-lg">ANIME</button>
+            <button onclick="setTheme('tradisional')" class="text-[9px] font-bold bg-amber-700 p-2 rounded-lg">TRADISI</button>
+            <button onclick="setTheme('modern')" class="text-[9px] font-bold bg-blue-600 p-2 rounded-lg">MODERN</button>
+            <button onclick="setTheme('cartoon')" class="text-[9px] font-bold bg-yellow-500 p-2 rounded-lg">KARTUN</button>
+        </div>
 
-    <div class="flex justify-center gap-4 mb-10">
-        <button onclick="setTheme('classic')" id="btn-classic" class="template-btn active w-12 h-12 rounded-xl bg-white border-2"></button>
-        <button onclick="setTheme('modern')" id="btn-modern" class="template-btn w-12 h-12 rounded-xl bg-slate-800"></button>
-        <button onclick="setTheme('floral')" id="btn-floral" class="template-btn w-12 h-12 rounded-xl bg-pink-200"></button>
-    </div>
+        <div class="space-y-2">
+            <input type="text" id="inputNama" oninput="updateCard()" placeholder="Nama Anda" class="w-full bg-white/5 p-3 rounded-xl text-xs outline-none border border-white/10 focus:border-yellow-400">
+            <textarea id="inputUcapan" oninput="updateCard()" placeholder="Tulis ucapan anda di sini..." class="w-full bg-white/5 p-3 rounded-xl text-xs outline-none border border-white/10 focus:border-yellow-400 h-16"></textarea>
+        </div>
+
+        <div class="flex items-center justify-between bg-emerald-900/50 p-3 rounded-xl border border-emerald-500/30">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-music text-yellow-400"></i>
+                <span id="fileName" class="text-[9px] opacity-60">Muat naik lagu MP3...</span>
+            </div>
+            <label class="custom-btn cursor-pointer">
+                UPLOAD <input type="file" id="audioUpload" accept="audio/*" class="hidden-input" onchange="handleAudio(this)">
+            </label>
+        </div>
+    </aside>
 
     <div class="envelope-wrapper">
         <div id="envelope" class="envelope" onclick="toggleEnvelope()">
-            <div class="flap shadow-lg"></div>
-            <div id="letter" class="letter rounded-xl theme-classic">
-                <i class="fas fa-moon text-yellow-500 text-2xl mb-2"></i>
-                <h2 class="font-bold text-xl leading-tight">Selamat Hari Raya Aidilfitri</h2>
-                <p class="text-[10px] mt-2 opacity-80 uppercase tracking-widest font-bold">Maaf Zahir & Batin</p>
-                <div class="mt-6 border-t pt-4">
-                    <p class="text-[10px] italic">- Ikhlas daripada -</p>
-                    <p class="font-bold text-sm tracking-tighter">AzlanMymo & Keluarga</p>
+            <div class="flap"></div>
+            <div id="letter" class="letter rounded-2xl theme-tradisional shadow-2xl">
+                <h3 id="displayNama" class="text-lg font-bold italic" style="font-family: 'Dancing Script', cursive;">AzlanMymo</h3>
+                <p id="displayUcapan" class="text-xs mt-3 leading-relaxed">Selamat Hari Raya Aidilfitri, Maaf Zahir & Batin daripada kami sekeluarga!</p>
+                <div class="mt-4 pt-4 border-t border-black/10">
+                    <p class="text-[8px] uppercase tracking-widest font-bold">Raya 2026 Interactive</p>
                 </div>
             </div>
-            <div class="absolute bottom-0 w-full h-full bg-emerald-800/50 rounded-b-15 z-3"></div>
+            <div class="absolute bottom-0 w-full h-full bg-emerald-800/40 rounded-b-15 z-[3] pointer-events-none"></div>
         </div>
     </div>
 
-    <div class="text-center mt-12">
-        <p class="text-[10px] text-yellow-400 font-bold uppercase animate-pulse">Klik Sampul Untuk Buka</p>
-        <div id="music-status" class="mt-4 text-[9px] opacity-40 flex items-center justify-center gap-2">
-            <i class="fas fa-music"></i> <span>Audio Ready</span>
-        </div>
+    <div class="text-center mt-12 space-y-4">
+        <p class="text-[10px] text-yellow-400 font-bold uppercase animate-pulse">Sentuh sampul untuk buka</p>
+        <button onclick="location.reload()" class="text-[9px] opacity-40 underline">Reset Kad</button>
     </div>
 
-    <audio id="rayaAudio" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
+    <audio id="rayaAudio" loop></audio>
 
     <script>
         let isOpened = false;
         const audio = document.getElementById('rayaAudio');
 
-        function toggleEnvelope() {
-            const env = document.getElementById('envelope');
-            isOpened = !isOpened;
+        // Fungsi Update Teks Secara Live
+        function updateCard() {
+            const nama = document.getElementById('inputNama').value || 'AzlanMymo';
+            const ucapan = document.getElementById('inputUcapan').value || 'Selamat Hari Raya Aidilfitri, Maaf Zahir & Batin daripada kami sekeluarga!';
             
-            env.classList.toggle('open');
+            document.getElementById('displayNama').innerText = nama;
+            document.getElementById('displayUcapan').innerText = ucapan;
+        }
 
-            if (isOpened) {
-                audio.play().catch(e => console.log("Autoplay blocked, user interaction required"));
-                document.getElementById('music-status').innerHTML = '<i class="fas fa-volume-up text-green-400"></i> <span class="text-green-400 uppercase">Playing: Suasana Hari Raya</span>';
-            } else {
-                audio.pause();
-                document.getElementById('music-status').innerHTML = '<i class="fas fa-volume-mute"></i> <span>Audio Paused</span>';
+        // Fungsi Tukar Tema Ilustrasi
+        function setTheme(theme) {
+            const letter = document.getElementById('letter');
+            letter.className = `letter rounded-2xl shadow-2xl theme-${theme}`;
+            
+            // Tukar warna sampul ikut tema
+            const env = document.getElementById('envelope');
+            if(theme === 'anime') env.style.background = '#be185d';
+            else if(theme === 'modern') env.style.background = '#1e293b';
+            else if(theme === 'cartoon') env.style.background = '#d97706';
+            else env.style.background = '#065f46';
+        }
+
+        // Fungsi Handle Audio Upload
+        function handleAudio(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    audio.src = e.target.result;
+                    document.getElementById('fileName').innerText = input.files[0].name;
+                    document.getElementById('fileName').classList.add('text-green-400');
+                };
+                reader.readAsDataURL(input.files[0]);
             }
         }
 
-        function setTheme(theme) {
-            const letter = document.getElementById('letter');
-            const btns = document.querySelectorAll('.template-btn');
-            
-            // Reset buttons
-            btns.forEach(b => b.classList.remove('active'));
-            document.getElementById('btn-' + theme).classList.add('active');
+        function toggleEnvelope() {
+            const env = document.getElementById('envelope');
+            isOpened = !isOpened;
+            env.classList.toggle('open');
 
-            // Apply theme
-            letter.className = 'letter rounded-xl theme-' + theme;
-            
-            // Feedback
-            if (window.navigator.vibrate) window.navigator.vibrate(20);
+            if (isOpened) {
+                if(audio.src) audio.play();
+            } else {
+                audio.pause();
+            }
         }
     </script>
 </body>
