@@ -3,40 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personalized Card | AzlanMymo Lab</title>
+    <title>AzlanMymo Card | Auto-Compress</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;700&display=swap');
-        body { background: #022c22; font-family: 'Poppins', sans-serif; }
+        body { background: #022c22; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
         .letter { 
             position: absolute; bottom: 10px; left: 10px; width: 300px; height: 200px; 
             transition: 0.8s; z-index: 2; padding: 25px; text-align: center;
             display: flex; flex-direction: column; justify-content: center;
             background: white; background-size: cover; background-position: center; border: 4px solid #d4af37;
         }
-        .text-overlay { background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 15px; color: white; backdrop-filter: blur(2px); }
-        .envelope-wrapper { height: 400px; perspective: 1000px; display: flex; justify-content: center; align-items: flex-end; }
-        .envelope { position: relative; width: 320px; height: 220px; background: #065f46; border-radius: 0 0 15px 15px; cursor: pointer; transform-style: preserve-3d; transition: 0.5s; }
+        .text-overlay { background: rgba(0, 0, 0, 0.6); padding: 15px; border-radius: 15px; color: white; backdrop-filter: blur(2px); }
+        .envelope-wrapper { height: 380px; perspective: 1000px; display: flex; justify-content: center; align-items: flex-end; }
+        .envelope { position: relative; width: 320px; height: 220px; background: #065f46; border-radius: 0 0 15px 15px; cursor: pointer; transition: 0.5s; }
         .flap { position: absolute; top: 0; width: 0; height: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 120px solid #047857; transform-origin: top; transition: 0.6s; z-index: 3; }
         .envelope.open .flap { transform: rotateX(180deg); z-index: 1; }
-        .envelope.open .letter { transform: translateY(-180px); height: 280px; z-index: 4; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .envelope.open .letter { transform: translateY(-160px); height: 260px; z-index: 4; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
         .hidden-input { display: none; }
-        .control-panel { background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
+        .control-panel { background: rgba(0,0,0,0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
     </style>
 </head>
 <body class="min-h-screen p-4 pb-32">
 
     <aside id="adminPanel" class="max-w-md mx-auto mb-8 space-y-4 control-panel p-6 rounded-[2rem]">
-        <h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-yellow-400 text-center mb-4 italic italic font-black text-yellow-500 underline decoration-double">AzlanMymo Card Engine</h2>
+        <h2 class="text-[10px] font-black uppercase tracking-[0.2em] text-yellow-400 text-center mb-4 italic underline decoration-double">AzlanMymo Card Engine</h2>
         
         <div class="space-y-3">
             <div class="grid grid-cols-2 gap-2">
-                <label class="bg-white/10 text-white p-3 rounded-2xl text-[9px] font-bold cursor-pointer text-center border border-white/5 hover:bg-white/20">
-                    <i class="fas fa-image mr-1"></i> GABUNG FOTO <input type="file" id="imageUpload" accept="image/*" class="hidden-input" onchange="handleImage(this)">
+                <label class="bg-white/10 text-white p-3 rounded-2xl text-[9px] font-bold cursor-pointer text-center border border-white/5">
+                    <i class="fas fa-image mr-1"></i> FOTO <input type="file" id="imageUpload" accept="image/*" class="hidden-input" onchange="compressImage(this)">
                 </label>
-                <label class="bg-white/10 text-white p-3 rounded-2xl text-[9px] font-bold cursor-pointer text-center border border-white/5 hover:bg-white/20">
-                    <i class="fas fa-music mr-1"></i> GABUNG LAGU <input type="file" id="audioUpload" accept="audio/*" class="hidden-input" onchange="handleAudio(this)">
+                <label class="bg-white/10 text-white p-3 rounded-2xl text-[9px] font-bold cursor-pointer text-center border border-white/5">
+                    <i class="fas fa-music mr-1"></i> LAGU <input type="file" id="audioUpload" accept="audio/*" class="hidden-input" onchange="handleAudio(this)">
                 </label>
             </div>
 
@@ -44,10 +44,11 @@
             <textarea id="inputUcapan" oninput="updateCard()" placeholder="Ucapan khas..." class="w-full bg-white/5 p-4 rounded-2xl text-xs text-white outline-none border border-white/10 focus:border-yellow-400 h-16"></textarea>
 
             <div class="pt-4 space-y-2">
-                <input type="tel" id="waNumber" placeholder="Nombor WhatsApp (6012...)" class="w-full bg-white/5 p-4 rounded-2xl text-xs text-white outline-none border border-white/10">
+                <input type="tel" id="waNumber" placeholder="60123456789" class="w-full bg-white/5 p-4 rounded-2xl text-xs text-white outline-none border border-white/10">
                 <button onclick="generateShareLink()" class="w-full bg-green-500 hover:bg-green-600 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-3 transition shadow-xl">
-                    <i class="fab fa-whatsapp text-xl"></i> HANTAR KAD LENGKAP
+                    <i class="fab fa-whatsapp text-xl"></i> HANTAR (MAX SIZE OK)
                 </button>
+                <p id="sizeIndicator" class="text-[8px] text-center text-white/40 uppercase tracking-tighter">Size: 0kb / Limit: ~100kb</p>
             </div>
         </div>
     </aside>
@@ -60,7 +61,7 @@
                     <h3 id="displayNama" class="text-xl font-bold italic" style="font-family: 'Dancing Script', cursive;"></h3>
                     <p id="displayUcapan" class="text-[10px] mt-4 leading-relaxed font-medium"></p>
                 </div>
-                <div id="defaultMsg" class="text-emerald-900 font-bold">Sila isi maklumat di atas</div>
+                <div id="defaultMsg" class="text-emerald-900 font-bold text-xs">Isi maklumat di atas & upload fail</div>
             </div>
             <div class="absolute bottom-0 w-full h-full bg-emerald-800/40 rounded-b-15 z-[3] pointer-events-none"></div>
         </div>
@@ -74,40 +75,52 @@
         let base64Audio = "";
         const audio = document.getElementById('rayaAudio');
 
-        // 1. Semak jika ada data dalam URL (Mode Penerima)
         window.onload = () => {
             const params = new URLSearchParams(window.location.search);
             if (params.has('d')) {
                 document.getElementById('adminPanel').classList.add('hidden');
-                const data = JSON.parse(atob(params.get('d')));
-                
-                // Set data ke kad
-                document.getElementById('displayNama').innerText = data.n;
-                document.getElementById('displayUcapan').innerText = data.u;
-                document.getElementById('cardContent').className = data.i ? "text-overlay shadow-lg" : "text-emerald-900";
-                document.getElementById('defaultMsg').classList.add('hidden');
-                
-                if (data.i) document.getElementById('letter').style.backgroundImage = `url(${data.i})`;
-                if (data.a) audio.src = data.a;
+                try {
+                    const data = JSON.parse(decodeURIComponent(escape(atob(params.get('d')))));
+                    document.getElementById('displayNama').innerText = data.n;
+                    document.getElementById('displayUcapan').innerText = data.u;
+                    document.getElementById('cardContent').className = data.i ? "text-overlay shadow-lg" : "text-emerald-900";
+                    document.getElementById('defaultMsg').classList.add('hidden');
+                    if (data.i) document.getElementById('letter').style.backgroundImage = `url(${data.i})`;
+                    if (data.a) audio.src = data.a;
+                } catch(e) { console.error("Data error"); }
             }
         };
 
         function updateCard() {
-            const nama = document.getElementById('inputNama').value;
-            const ucapan = document.getElementById('inputUcapan').value;
-            document.getElementById('displayNama').innerText = nama;
-            document.getElementById('displayUcapan').innerText = ucapan;
+            document.getElementById('displayNama').innerText = document.getElementById('inputNama').value;
+            document.getElementById('displayUcapan').innerText = document.getElementById('inputUcapan').value;
             document.getElementById('defaultMsg').classList.add('hidden');
             document.getElementById('cardContent').classList.remove('hidden');
         }
 
-        function handleImage(input) {
+        // AUTO-COMPRESS GAMBAR
+        function compressImage(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    base64Image = e.target.result;
-                    document.getElementById('letter').style.backgroundImage = `url(${base64Image})`;
-                    document.getElementById('cardContent').className = "text-overlay shadow-lg";
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 400; // Kecilkan saiz pixel
+                        const scaleSize = MAX_WIDTH / img.width;
+                        canvas.width = MAX_WIDTH;
+                        canvas.height = img.height * scaleSize;
+                        
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        
+                        // Convert ke JPEG berkualiti rendah (0.5) untuk kurangkan saiz Base64
+                        base64Image = canvas.toDataURL('image/jpeg', 0.5);
+                        document.getElementById('letter').style.backgroundImage = `url(${base64Image})`;
+                        document.getElementById('cardContent').className = "text-overlay shadow-lg";
+                        calculateSize();
+                    };
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -115,13 +128,24 @@
 
         function handleAudio(input) {
             if (input.files && input.files[0]) {
+                if(input.files[0].size > 100000) { // Limit 100kb
+                    alert("Fail audio terlalu besar! Sila gunakan audio pendek (bawah 100kb).");
+                    return;
+                }
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     base64Audio = e.target.result;
                     audio.src = base64Audio;
+                    calculateSize();
                 };
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        function calculateSize() {
+            const total = (base64Image.length + base64Audio.length) / 1024;
+            document.getElementById('sizeIndicator').innerText = `Size: ${Math.round(total)}kb / Limit: ~100kb`;
+            if(total > 120) document.getElementById('sizeIndicator').className = "text-[8px] text-center text-red-400 font-bold uppercase";
         }
 
         function toggleEnvelope() {
@@ -133,7 +157,7 @@
 
         function generateShareLink() {
             const wa = document.getElementById('waNumber').value;
-            if (!wa) return alert("Masukkan no telefon!");
+            if (!wa) return alert("Masukkan no WhatsApp!");
 
             const payload = {
                 n: document.getElementById('inputNama').value || "AzlanMymo",
@@ -142,13 +166,20 @@
                 a: base64Audio
             };
 
-            // Tukar objek jadi string Base64
-            const encodedData = btoa(JSON.stringify(payload));
-            const shareUrl = window.location.origin + window.location.pathname + "?d=" + encodedData;
+            try {
+                const encodedData = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+                const shareUrl = window.location.origin + window.location.pathname + "?d=" + encodedData;
+                
+                if(shareUrl.length > 8000) {
+                    alert("Data terlalu besar! Kurangkan saiz gambar atau buang lagu.");
+                    return;
+                }
 
-            const text = `*KAD RAYA DIGITAL KHAS UNTUK ANDA!*%0A%0ASila buka pautan di bawah untuk melihat kad interaktif beserta gambar dan lagu raya daripada saya:%0A%0A${shareUrl}`;
-            
-            window.open(`https://wa.me/${wa}?text=${text}`, '_blank');
+                const text = `*KAD RAYA DIGITAL KHAS UNTUK ANDA!*%0A%0ASila buka pautan di bawah untuk melihat kad interaktif:%0A%0A${shareUrl}`;
+                window.open(`https://wa.me/${wa}?text=${text}`, '_blank');
+            } catch(e) {
+                alert("Gagal menjana link. Pastikan fail tidak terlalu besar.");
+            }
         }
     </script>
 </body>
