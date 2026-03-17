@@ -19,67 +19,103 @@
         }
     </script>
     <style>
-        .sidebar-active { border-left: 4px solid #fcd34d; background: rgba(252, 211, 77, 0.1); }
-        .stat-card { background: white; border: 1px solid #e5e7eb; }
+        body { background-color: #f8fafc; }
+        .stat-card { background: white; border: 1px solid #e2e8f0; transition: 0.3s; }
+        .stat-card:hover { border-color: #10b981; transform: translateY(-2px); }
+        .glass-nav { background: rgba(6, 78, 59, 0.95); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="min-h-screen pb-24">
 
-    <header class="bg-emerald-900 text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-user-shield text-yellow-400"></i>
-            <h1 class="font-bold tracking-tight uppercase">Azlan<span class="text-yellow-400">Mymo</span> Admin</h1>
+    <header class="glass-nav text-white p-6 rounded-b-[2.5rem] shadow-xl sticky top-0 z-50">
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-3">
+                <div class="bg-yellow-400 p-2 rounded-lg text-emerald-900 shadow-inner">
+                    <i class="fas fa-user-shield text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold tracking-tight text-lg uppercase">Azlan<span class="text-yellow-400">Mymo</span></h1>
+                    <p class="text-[9px] opacity-60 tracking-[0.2em]">LABS CONTROL CENTER</p>
+                </div>
+            </div>
+            <button onclick="logout()" class="bg-red-500/20 hover:bg-red-500 text-red-200 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition-all border border-red-500/30">
+                LOGOUT
+            </button>
         </div>
-        <button onclick="logout()" class="text-xs bg-red-600 px-3 py-1 rounded-lg font-bold">LOGOUT</button>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white/10 p-4 rounded-2xl border border-white/10 shadow-inner">
+                <p class="text-[9px] uppercase font-bold text-yellow-400 mb-1">Total Revenue</p>
+                <h3 class="text-xl font-bold">RM 2,450.00</h3>
+                <p class="text-[8px] text-emerald-400 font-semibold">+12% vs semalam</p>
+            </div>
+            <div class="bg-white/10 p-4 rounded-2xl border border-white/10 shadow-inner">
+                <p class="text-[9px] uppercase font-bold text-yellow-400 mb-1">Total RSVP</p>
+                <h3 class="text-xl font-bold">42 <span class="text-xs font-normal opacity-60">Pax</span></h3>
+                <p class="text-[8px] text-blue-400 font-semibold">158 pelawat unik</p>
+            </div>
+        </div>
     </header>
 
-    <main class="p-4 space-y-6">
-        <section class="grid grid-cols-2 gap-4">
-            <div class="stat-card p-4 rounded-2xl shadow-sm">
-                <p class="text-[10px] uppercase font-bold text-gray-400">Total Revenue</p>
-                <h3 class="text-xl font-bold text-emerald-700">RM 2,450.00</h3>
-                <p class="text-[10px] text-green-500 font-semibold">+12% vs semalam</p>
-            </div>
-            <div class="stat-card p-4 rounded-2xl shadow-sm">
-                <p class="text-[10px] uppercase font-bold text-gray-400">Active Users</p>
-                <h3 class="text-xl font-bold text-emerald-700">1,240</h3>
-                <p class="text-[10px] text-blue-500 font-semibold">158 online</p>
-            </div>
-        </section>
-
+    <main class="p-6 space-y-8">
+        
         <section>
-            <h2 class="text-sm font-bold mb-4 flex items-center gap-2">
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
                 <i class="fas fa-chart-line text-emerald-600"></i> Prestasi Modul
             </h2>
             <div class="space-y-3">
-                <div class="bg-white p-4 rounded-xl shadow-sm flex justify-between items-center border-l-4 border-yellow-500">
-                    <div>
-                        <p class="font-bold text-sm">Kad Raya AI</p>
-                        <p class="text-[10px] text-gray-500">842 terjana hari ini</p>
+                <div class="stat-card p-4 rounded-2xl flex justify-between items-center border-l-4 border-yellow-500 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-yellow-100 p-3 rounded-xl text-yellow-600"><i class="fas fa-magic"></i></div>
+                        <div>
+                            <p class="font-bold text-sm text-slate-800">AI Pantun Raya</p>
+                            <p class="text-[10px] text-slate-400">842 terjana hari ini</p>
+                        </div>
                     </div>
-                    <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2 py-1 rounded-full font-bold">HOT</span>
+                    <span class="bg-yellow-100 text-yellow-700 text-[10px] px-3 py-1 rounded-full font-bold">HOT</span>
+                </div>
+
+                <div class="stat-card p-4 rounded-2xl flex justify-between items-center border-l-4 border-emerald-500 shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-emerald-100 p-3 rounded-xl text-emerald-600"><i class="fas fa-envelope-open"></i></div>
+                        <div>
+                            <p class="font-bold text-sm text-slate-800">Kad Raya Digital</p>
+                            <p class="text-[10px] text-slate-400">312 sampul dibuka</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2 class="text-sm font-bold mb-4 flex items-center gap-2">
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
                 <i class="fas fa-history text-emerald-600"></i> Transaksi Terkini
             </h2>
-            <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
                 <table class="w-full text-left text-xs">
-                    <thead class="bg-gray-100 text-gray-600 uppercase">
+                    <thead class="bg-slate-50 text-slate-500 uppercase">
                         <tr>
-                            <th class="p-3">User</th>
-                            <th class="p-3">Modul</th>
-                            <th class="p-3">Status</th>
+                            <th class="p-4 font-bold">User</th>
+                            <th class="p-4 font-bold text-center">Modul</th>
+                            <th class="p-4 font-bold text-right">Status</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody class="divide-y divide-slate-100 text-slate-700">
                         <tr>
-                            <td class="p-3 font-medium">Hafiz R.</td>
-                            <td class="p-3">Premium Card</td>
-                            <td class="p-3 text-green-600 font-bold">Paid</td>
+                            <td class="p-4">
+                                <span class="font-bold">Hafiz R.</span>
+                                <p class="text-[9px] text-slate-400 italic">2 min yang lalu</p>
+                            </td>
+                            <td class="p-4 text-center">Premium Card</td>
+                            <td class="p-4 text-right"><span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded-lg font-bold">PAID</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4">
+                                <span class="font-bold">Siti Aminah</span>
+                                <p class="text-[9px] text-slate-400 italic">15 min yang lalu</p>
+                            </td>
+                            <td class="p-4 text-center">Duit Raya QR</td>
+                            <td class="p-4 text-right"><span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-lg font-bold">SENT</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -87,8 +123,15 @@
         </section>
     </main>
 
-    <button class="fixed bottom-6 right-6 bg-emerald-900 text-yellow-400 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-xl border-2 border-yellow-400">
-        <i class="fas fa-plus"></i>
-    </button>
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] bg-emerald-900/95 backdrop-blur-xl border border-white/20 p-4 rounded-[2.5rem] shadow-2xl flex justify-around items-center z-50">
+        <button class="text-yellow-400 scale-125"><i class="fas fa-th-large"></i></button>
+        <button class="text-white/40"><i class="fas fa-users"></i></button>
+        <div class="bg-yellow-400 w-12 h-12 rounded-full flex items-center justify-center text-emerald-900 shadow-lg -translate-y-6 border-4 border-emerald-900">
+            <i class="fas fa-plus"></i>
+        </div>
+        <button class="text-white/40"><i class="fas fa-shopping-cart"></i></button>
+        <button class="text-white/40"><i class="fas fa-cog"></i></button>
+    </div>
+
 </body>
 </html>
