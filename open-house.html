@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP Rumah Terbuka | AzlanMymo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .slot-btn:focus { background-color: #fcd34d; color: #064e3b; border-color: #fcd34d; }
+    </style>
+</head>
+<body class="bg-emerald-900 min-h-screen p-6 text-emerald-900">
+
+    <div class="max-w-md mx-auto">
+        <div class="bg-yellow-500 h-32 rounded-t-3xl flex items-center justify-center text-emerald-900">
+            <i class="fas fa-home text-5xl"></i>
+        </div>
+
+        <div class="glass p-6 rounded-b-3xl shadow-2xl space-y-6">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold uppercase">Rumah Terbuka AzlanMymo</h1>
+                <p class="text-xs text-emerald-600 font-medium italic">1 Syawal 2026 | 10:00 AM - 10:00 PM</p>
+            </div>
+
+            <hr class="border-emerald-100">
+
+            <form id="rsvpForm" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest mb-1">Nama Ketua Keluarga</label>
+                    <input type="text" id="guestName" required class="w-full p-3 rounded-xl border border-emerald-100 outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Masukkan nama anda">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest mb-1">Bilangan Tetamu</label>
+                    <input type="number" id="guestCount" required min="1" class="w-full p-3 rounded-xl border border-emerald-100 outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Termasuk kanak-kanak">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest mb-2 text-center">Pilih Slot Kehadiran</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" class="slot-btn border border-emerald-200 py-2 rounded-lg text-xs font-bold hover:bg-emerald-50">12PM - 3PM</button>
+                        <button type="button" class="slot-btn border border-emerald-200 py-2 rounded-lg text-xs font-bold hover:bg-emerald-50">3PM - 6PM</button>
+                        <button type="button" class="slot-btn border border-emerald-200 py-2 rounded-lg text-xs font-bold hover:bg-emerald-50 text-red-400" disabled>6PM - 9PM (Penuh)</button>
+                        <button type="button" class="slot-btn border border-emerald-200 py-2 rounded-lg text-xs font-bold hover:bg-emerald-50 text-red-400" disabled>Slot Malam (Tutup)</button>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-50 p-4 rounded-2xl">
+                    <h3 class="text-xs font-bold mb-2 uppercase text-emerald-800"><i class="fas fa-utensils mr-2"></i> Menu Istimewa</h3>
+                    <ul class="text-[10px] space-y-1 text-emerald-700">
+                        <li>• Rendang Daging Tok Azlan</li>
+                        <li>• Ketupat Palas Lembut</li>
+                        <li>• Kambing Bakar "Mymo" Signature</li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-800 text-yellow-400 font-bold py-4 rounded-xl shadow-lg hover:bg-emerald-700 transition">
+                    HANTAR PENGESAHAN (RSVP)
+                </button>
+            </form>
+        </div>
+
+        <p class="text-center text-white/50 text-[10px] mt-6 tracking-widest">POWERED BY AZLANMYMO SMART SYSTEM</p>
+    </div>
+
+    <script>
+        document.getElementById('rsvpForm').onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('guestName').value;
+            alert("Terima kasih " + name + "! RSVP anda telah berjaya dihantar. Jumpa di sana!");
+            window.location.href = "index.html";
+        };
+    </script>
+</body>
+</html>
