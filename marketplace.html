@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raya Marketplace | AzlanMymo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .product-card { background: white; border-radius: 20px; overflow: hidden; transition: 0.3s; }
+        .product-card:active { transform: scale(0.95); }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen pb-24">
+
+    <nav class="bg-emerald-800 text-white p-4 sticky top-0 z-50 flex justify-between items-center shadow-lg">
+        <a href="index.html"><i class="fas fa-arrow-left"></i></a>
+        <h1 class="font-bold tracking-widest text-sm uppercase">Katalog Kuih Raya 2026</h1>
+        <div class="relative">
+            <i class="fas fa-shopping-basket text-xl"></i>
+            <span id="cartCount" class="cart-badge">0</span>
+        </div>
+    </nav>
+
+    <div class="bg-yellow-400 p-6 text-emerald-900 text-center">
+        <p class="text-[10px] font-bold uppercase tracking-widest">Promosi Ramadhan</p>
+        <h2 class="text-xl font-extrabold uppercase italic">Diskaun 10% Kombo Raya!</h2>
+    </div>
+
+    <main class="p-4 grid grid-cols-2 gap-4">
+        
+        <div class="product-card shadow-sm border border-gray-200">
+            <div class="h-32 bg-emerald-100 flex items-center justify-center">
+                <i class="fas fa-cookie text-emerald-800 text-4xl"></i>
+            </div>
+            <div class="p-3">
+                <h3 class="font-bold text-sm">Tart Nanas Premium</h3>
+                <p class="text-xs text-emerald-700 font-bold">RM 35.00</p>
+                <button onclick="addToCart('Tart Nanas', 35)" class="mt-3 w-full bg-emerald-800 text-white py-2 rounded-lg text-[10px] font-bold uppercase">Tambah</button>
+            </div>
+        </div>
+
+        <div class="product-card shadow-sm border border-gray-200">
+            <div class="h-32 bg-emerald-100 flex items-center justify-center">
+                <i class="fas fa-stroopwafel text-emerald-800 text-4xl"></i>
+            </div>
+            <div class="p-3">
+                <h3 class="font-bold text-sm">Almond London</h3>
+                <p class="text-xs text-emerald-700 font-bold">RM 38.00</p>
+                <button onclick="addToCart('Almond London', 38)" class="mt-3 w-full bg-emerald-800 text-white py-2 rounded-lg text-[10px] font-bold uppercase">Tambah</button>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="fixed bottom-6 left-0 right-0 px-6">
+        <button onclick="checkoutWhatsApp()" class="w-full bg-green-600 text-white font-bold py-4 rounded-2xl shadow-2xl flex items-center justify-center gap-3 transition active:bg-green-700">
+            <i class="fab fa-whatsapp text-2xl"></i>
+            <span>PESAN SEKARANG VIA WHATSAPP</span>
+        </button>
+    </div>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            total += price;
+            document.getElementById('cartCount').innerText = cart.length;
+            alert(name + " ditambah ke bakul!");
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Bakul anda kosong!");
+                return;
+            }
+
+            let phone = "60123456789"; // Ganti dengan nombor peniaga
+            let message = "Salam AzlanMymo, saya ingin tempah kuih raya:%0A%0A";
+            
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} (RM${item.price})%0A`;
+            });
+
+            message += `%0ATotal: RM${total}%0AMohon info cara bayaran. Terima kasih!`;
+            
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
