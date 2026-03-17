@@ -11,56 +11,59 @@
         
         body { background: #022c22; font-family: 'Poppins', sans-serif; }
         
-        /* Default Card Styling */
         .letter { 
             position: absolute; bottom: 10px; left: 10px; 
             width: 300px; height: 200px; transition: 0.8s; 
             z-index: 2; padding: 25px; text-align: center;
             display: flex; flex-direction: column; justify-content: center;
-            background: white; /* Default background */
-            background-size: cover; background-position: center;
-            border: 4px solid #d4af37; /* Gold border */
+            background: white; background-size: cover; background-position: center;
+            border: 4px solid #d4af37;
         }
 
-        /* Overlay untuk pastikan teks boleh dibaca jika gambar cerah */
         .text-overlay {
             background: rgba(0, 0, 0, 0.4);
             padding: 15px; border-radius: 15px; color: white;
             backdrop-filter: blur(2px);
         }
 
-        /* Animasi Sampul */
-        .envelope-wrapper { height: 420px; perspective: 1000px; display: flex; justify-content: center; align-items: flex-end; }
+        .envelope-wrapper { height: 400px; perspective: 1000px; display: flex; justify-content: center; align-items: flex-end; }
         .envelope { position: relative; width: 320px; height: 220px; background: #065f46; border-radius: 0 0 15px 15px; cursor: pointer; transform-style: preserve-3d; transition: 0.5s; }
         .flap { position: absolute; top: 0; width: 0; height: 0; border-left: 160px solid transparent; border-right: 160px solid transparent; border-top: 120px solid #047857; transform-origin: top; transition: 0.6s; z-index: 3; }
         .envelope.open .flap { transform: rotateX(180deg); z-index: 1; }
-        .envelope.open .letter { transform: translateY(-180px); height: 280px; z-index: 4; shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .envelope.open .letter { transform: translateY(-180px); height: 280px; z-index: 4; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
 
         .hidden-input { display: none; }
         .control-panel { background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .whatsapp-btn { background: #25d366; transition: 0.3s; }
+        .whatsapp-btn:active { transform: scale(0.95); }
     </style>
 </head>
-<body class="min-h-screen p-4 pb-24">
+<body class="min-h-screen p-4 pb-32">
 
     <aside class="max-w-md mx-auto mb-8 space-y-4 control-panel p-6 rounded-[2rem]">
-        <h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-yellow-400 text-center mb-4">Kad Raya Designer</h2>
+        <h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-yellow-400 text-center mb-4">Designer & Sharing</h2>
         
         <div class="space-y-3">
-            <div class="flex items-center justify-between bg-white/5 p-3 rounded-2xl border border-white/10">
-                <span class="text-[10px] text-white/60 ml-2">Guna Gambar Sendiri</span>
-                <label class="bg-yellow-500 text-emerald-900 px-4 py-2 rounded-xl text-[10px] font-bold cursor-pointer hover:bg-yellow-400 transition">
-                    PILIH FOTO <input type="file" id="imageUpload" accept="image/*" class="hidden-input" onchange="handleImage(this)">
+            <div class="grid grid-cols-2 gap-2">
+                <label class="bg-white/10 text-white p-3 rounded-2xl text-[9px] font-bold cursor-pointer text-center border border-white/5">
+                    <i class="fas fa-image mr-1"></i> FOTO <input type="file" id="imageUpload" accept="image/*" class="hidden-input" onchange="handleImage(this)">
+                </label>
+                <label class="bg-white/10 text-white p-3 rounded-2xl text-[9px] font-bold cursor-pointer text-center border border-white/5">
+                    <i class="fas fa-music mr-1"></i> LAGU <input type="file" id="audioUpload" accept="audio/*" class="hidden-input" onchange="handleAudio(this)">
                 </label>
             </div>
 
             <input type="text" id="inputNama" oninput="updateCard()" placeholder="Nama Pengirim" class="w-full bg-white/5 p-4 rounded-2xl text-xs text-white outline-none border border-white/10 focus:border-yellow-400">
-            <textarea id="inputUcapan" oninput="updateCard()" placeholder="Tulis ucapan anda..." class="w-full bg-white/5 p-4 rounded-2xl text-xs text-white outline-none border border-white/10 focus:border-yellow-400 h-20"></textarea>
+            <textarea id="inputUcapan" oninput="updateCard()" placeholder="Tulis ucapan anda..." class="w-full bg-white/5 p-4 rounded-2xl text-xs text-white outline-none border border-white/10 focus:border-yellow-400 h-16"></textarea>
 
-            <div class="flex items-center justify-between bg-emerald-900/40 p-3 rounded-2xl border border-emerald-500/20">
-                <span id="fileName" class="text-[9px] text-emerald-300 ml-2">Muat naik lagu raya...</span>
-                <label class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-[10px] font-bold cursor-pointer hover:bg-emerald-500 transition">
-                    UPLOAD MP3 <input type="file" id="audioUpload" accept="audio/*" class="hidden-input" onchange="handleAudio(this)">
-                </label>
+            <hr class="border-white/10 my-4">
+
+            <div class="space-y-2">
+                <input type="tel" id="waNumber" placeholder="60123456789" class="w-full bg-white/5 p-4 rounded-2xl text-xs text-white outline-none border border-white/10 focus:border-green-400">
+                <button onclick="shareWhatsApp()" class="whatsapp-btn w-full text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 shadow-lg">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    <span class="text-xs uppercase tracking-widest">Hantar Kad Sekarang</span>
+                </button>
             </div>
         </div>
     </aside>
@@ -69,20 +72,17 @@
         <div id="envelope" class="envelope" onclick="toggleEnvelope()">
             <div class="flap"></div>
             <div id="letter" class="letter rounded-2xl shadow-2xl">
-                <div id="cardOverlay" class="hidden"> <h3 id="displayNama" class="text-xl font-bold italic" style="font-family: 'Dancing Script', cursive;">AzlanMymo</h3>
-                    <p id="displayUcapan" class="text-xs mt-4 leading-relaxed font-light">Selamat Hari Raya Aidilfitri, Maaf Zahir & Batin daripada kami sekeluarga!</p>
+                <div id="cardOverlay" class="hidden">
+                    <h3 id="displayNama" class="text-xl font-bold italic" style="font-family: 'Dancing Script', cursive;">AzlanMymo</h3>
+                    <p id="displayUcapan" class="text-[10px] mt-4 leading-relaxed font-light">Selamat Hari Raya Aidilfitri, Maaf Zahir & Batin daripada kami sekeluarga!</p>
                 </div>
                 <div id="defaultContent">
                     <h3 id="displayNamaDef" class="text-xl font-bold italic text-emerald-900" style="font-family: 'Dancing Script', cursive;">AzlanMymo</h3>
-                    <p id="displayUcapanDef" class="text-xs mt-4 leading-relaxed text-slate-600">Selamat Hari Raya Aidilfitri, Maaf Zahir & Batin!</p>
+                    <p id="displayUcapanDef" class="text-[10px] mt-4 leading-relaxed text-slate-600 font-medium">Selamat Hari Raya Aidilfitri, Maaf Zahir & Batin!</p>
                 </div>
             </div>
             <div class="absolute bottom-0 w-full h-full bg-emerald-800/40 rounded-b-15 z-[3] pointer-events-none"></div>
         </div>
-    </div>
-
-    <div class="text-center mt-12">
-        <p class="text-[10px] text-yellow-400 font-bold uppercase tracking-widest animate-pulse">Sentuh sampul untuk buka</p>
     </div>
 
     <audio id="rayaAudio" loop></audio>
@@ -101,15 +101,12 @@
             document.getElementById('displayUcapanDef').innerText = ucapan;
         }
 
-        // Fungsi Upload Gambar Background
         function handleImage(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const letter = document.getElementById('letter');
                     letter.style.backgroundImage = `url('${e.target.result}')`;
-                    
-                    // Tukar warna teks dan aktifkan overlay supaya nampak jelas
                     document.getElementById('cardOverlay').className = "text-overlay shadow-lg";
                     document.getElementById('defaultContent').className = "hidden";
                     letter.style.border = "none";
@@ -118,13 +115,11 @@
             }
         }
 
-        // Fungsi Upload Audio
         function handleAudio(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     audio.src = e.target.result;
-                    document.getElementById('fileName').innerText = "Lagu: " + input.files[0].name;
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -134,12 +129,28 @@
             const env = document.getElementById('envelope');
             isOpened = !isOpened;
             env.classList.toggle('open');
+            if (isOpened && audio.src) { audio.play(); } else { audio.pause(); }
+        }
 
-            if (isOpened && audio.src) {
-                audio.play();
-            } else {
-                audio.pause();
+        function shareWhatsApp() {
+            const number = document.getElementById('waNumber').value;
+            const nama = document.getElementById('inputNama').value || 'AzlanMymo';
+            const ucapan = document.getElementById('inputUcapan').value || 'Selamat Hari Raya Aidilfitri!';
+            
+            if (!number) {
+                alert("Sila masukkan nombor WhatsApp penerima!");
+                return;
             }
+
+            // Encode mesej untuk WhatsApp
+            const text = `*KAD RAYA DIGITAL INTERAKTIF*%0A%0A` +
+                         `Daripada: *${nama}*%0A` +
+                         `Ucapan: _"${ucapan}"_%0A%0A` +
+                         `Buka kad interaktif saya di sini: %0A` +
+                         `${window.location.href}%0A%0A` +
+                         `*Selamat Hari Raya Aidilfitri!*`;
+
+            window.open(`https://wa.me/${number}?text=${text}`, '_blank');
         }
     </script>
 </body>
