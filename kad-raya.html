@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kad Raya Interaktif | AzlanMymo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .envelope {
+            width: 300px; height: 200px;
+            background: #065f46; position: relative;
+            cursor: pointer; transition: 0.5s;
+            margin: 100px auto; transform-style: preserve-3d;
+        }
+        .flap {
+            position: absolute; top: 0; width: 0; height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #047857;
+            transform-origin: top; transition: 0.5s; z-index: 3;
+        }
+        .envelope.open .flap { transform: rotateX(180deg); }
+        .letter {
+            position: absolute; bottom: 0; left: 10px;
+            width: 280px; height: 180px; background: white;
+            transition: 0.5s; z-index: 2; padding: 20px;
+            color: #065f46; text-align: center;
+        }
+        .envelope.open .letter { transform: translateY(-100px); }
+    </style>
+</head>
+<body class="bg-emerald-900 flex items-center justify-center min-h-screen">
+
+    <div id="envelope" class="envelope" onclick="openEnvelope()">
+        <div class="flap"></div>
+        <div class="letter shadow-xl rounded-lg">
+            <h2 class="font-bold text-xl">Selamat Hari Raya!</h2>
+            <p class="text-sm mt-2">Maaf Zahir & Batin</p>
+            <p class="text-xs mt-4 italic font-semibold">- Ikhlas daripada AzlanMymo -</p>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            document.getElementById('envelope').classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
